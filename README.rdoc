@@ -1,0 +1,66 @@
+= Xanthan
+
+Xanthan is a ruby wrapper for the Citrix XenServer[http://www.xenserver.com] XenAPI (not the pure open source Xen).  Citrix XenServer exposes a full set of management APIs 
+for administering most all aspects of the XenServer platform, the XenCenter actually product uses these same APIs.  While Xanthan is not currently offer
+complete coverage of the XenAPI it tries to cover the most commonly used functions.
+
+Xanthan has its own methods to wrap much of the XenAPI functionality due to the need for error handling and callback functionality.  However
+it is still possible to easily call api methods that aren't implemented, or to extend Xanthan.
+
+Currently Xanthan is written as a Ruby On Rails plugin, but will be packaged as a gem in the future.
+
+= Installation
+  script/plugin install Xanthan
+
+Once installed you'll want to set constants for XEN_SERVER_USERNAME, XEN_SERVER_PASSWORD, and XEN_SERVER_MASTER (the master's IP)
+
+= Features
+Most VM features are implemented using both synchronous and asynchronous APIs.
+
+* VM: start, clean shutdown, hard shutdown, clean reboot, hard reboot
+* VM: create snapshot, delete snapshot, revert to snapshot 
+* VM: suspend and resume
+* VM: get disks (VBDs and VDIs)
+* VM: provision from template or backup
+* VM: clone
+* VM: destroy
+* VM: get consoles (connect via Java VNC)
+* VM: get metrics
+* Host: list resident VMs.
+
+= Usage
+
+== Create an asynchronous snapshot of a VM
+
+  require 'rubygems'
+  require '../lib/xanthan'
+  include Xanthan
+  
+  host = Host.connect("https://#{XEN_SERVER_MASTER}", XEN_SERVER_USERNAME, XEN_SERVER_PASSWORD)
+  link = host.get_link
+  
+  #needs to be a UUID of a current VM
+  vm_uuid = "60bdf52e-119a-3bcb-1d10-25a2cf6d1111"
+  vm = VM.find_by_uuid(link, vm_uuid)
+  task_result = vm.do_snapshot_async("my new snapshot")
+
+== Create a new VM from an existing snapshot
+
+  require 'rubygems'
+  require '../lib/xanthan'
+  include Xanthan
+  
+  host = Host.connect("https://#{XEN_SERVER_MASTER}", XEN_SERVER_USERNAME, XEN_SERVER_PASSWORD)
+  link = host.get_link
+  
+  #needs to be a UUID of a current snapshot
+  snapshot_uuid = "60bdf52e-119a-3bcb-1d10-25a2cf6d2222"
+  VM.create_new_from_snapshot(link, snapshot_uuid, "myVMFromSnapshot")
+
+
+= Contributors
+* Brian Webb (http://parkersmithsoftware.com[http://parkersmithsoftware.com]) 
+
+= Legal Mumbo Jumbo
+
+Unless otherwise noted in specific files, all code in the Xanthan project is under the copyright and license described in the included MIT-LICENSE file.
