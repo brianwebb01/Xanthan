@@ -10,7 +10,9 @@ it is still possible to easily call api methods that aren't implemented, or to e
 Currently Xanthan is written as a Ruby On Rails plugin, but will be packaged as a gem in the future.
 
 = Installation
-  script/plugin install Xanthan
+Run the following command from your RAILS_ROOT
+
+  ./script/plugin install git://github.com/parkersmith/Xanthan.git
 
 Once installed you'll want to set constants for XEN_SERVER_USERNAME, XEN_SERVER_PASSWORD, and XEN_SERVER_MASTER (the master's IP)
 
