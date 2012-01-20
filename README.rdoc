@@ -14,7 +14,7 @@ Run the following command from your RAILS_ROOT
 
   ./script/plugin install git://github.com/parkersmith/Xanthan.git
 
-Once installed you'll want to set constants for XEN_SERVER_USERNAME, XEN_SERVER_PASSWORD, and XEN_SERVER_MASTER (the master's IP)
+Once installed you'll want to set constants for XEN_SERVER_USERNAME, XEN_SERVER_PASSWORD, and XEN_SERVER_MASTER (the host pool master's IP)
 
 = Features
 Most VM features are implemented using both synchronous and asynchronous APIs.
