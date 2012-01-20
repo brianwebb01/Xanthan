@@ -59,7 +59,7 @@ Most VM features are implemented using both synchronous and asynchronous APIs.
 
 
 = Contributors
-* Brian Webb (http://parkersmithsoftware.com[http://parkersmithsoftware.com]) 
+* Brian Webb (http://parkersmithsoftware.com) 
 
 = Legal Mumbo Jumbo
 
